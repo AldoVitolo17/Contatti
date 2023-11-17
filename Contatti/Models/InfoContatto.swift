@@ -14,11 +14,17 @@ final class Contatti {
     var nome : String
     var cognome : String
     var cellulare : String
+   // var società : String
+    //var email : String
+    //var immagine : Image?
     
     init(id: String = UUID().uuidString, nome: String, cognome: String, cellulare: String) {
         self.id = id
         self.nome = nome
         self.cognome = cognome
         self.cellulare = cellulare
+       //self.società = società
+       // self.immagine = immagine
+       // self.email = email
     }
 }
