@@ -17,7 +17,14 @@ struct DettagliContattoView: View {
             NavigationStack{
                 
                 List{
-                    
+                    HStack{
+                        Spacer()
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 190)
+                        Spacer()
+                    }.foregroundColor(.gray)
                     Section{
                         Text(contatto?.nome ?? "")
                             .font(.headline)
@@ -25,6 +32,10 @@ struct DettagliContattoView: View {
                         Text(contatto?.cognome ?? "")
                             .font(.headline)
                             .fontWeight(.medium)
+                    }
+    
+                    Section{
+                        Text(contatto?.cellulare ?? "")
                     }
 
                 }

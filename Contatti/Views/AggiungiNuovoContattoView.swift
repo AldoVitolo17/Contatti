@@ -6,16 +6,18 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct AggiungiNuovoContattoView: View {
     
     @Environment (\.modelContext) private var modelContext
     @Environment (\.dismiss) private var dismiss
+    @Query private var contact:[Contatti]
     @State var contatto: Contatti? = nil
     @State private var nome = ""
     @State private var cognome = ""
     @State private var cellulare = ""
-     @State private var società = ""
+    @State private var società = ""
     @State private var email = ""
     //@State private var immagine = Image("")
     @State private var isDisabled = true
@@ -50,14 +52,14 @@ struct AggiungiNuovoContattoView: View {
                         Text("Sognome")
                     }
                     TextField(text: $società){
-                     Text("Società")
-                    // .color(Color(hue: 1.0, saturation: 0.54, brightness: 0.557))
+                        Text("Società")
+                        // .color(Color(hue: 1.0, saturation: 0.54, brightness: 0.557))
                     }
                 }
                 
                 Section {
                     TextField("aggiungi cellulare", text: $cellulare)
-                        
+                    
                 }
                 
                 
@@ -73,15 +75,45 @@ struct AggiungiNuovoContattoView: View {
                 ToolbarItem(placement: .topBarTrailing){
                     Button("Fine"){
                         if !nome.isEmpty{
-                            let contatto = Contatti(nome: nome, cognome: cognome, cellulare: cellulare)
-                            modelContext.insert(contatto)
                             
-                            dismiss()
+                            withAnimation{
+                                salvaContatto()
+                                dismiss()
+                                
+                            }
+                            
+                            
                         }
                     }
                     .disabled(nome.isEmpty)
                     .disabled(cellulare.isEmpty)
                 }
+            }
+        }
+        
+        .onAppear(){
+            if let contatto{
+                nome = contatto.nome
+                cognome = contatto.cognome
+                cellulare = contatto.cellulare
+            }
+        }
+        
+    }
+    
+    // MARK: - Private methods
+    private func salvaContatto(){
+        if !nome.isEmpty{
+            if let contatto{
+                contatto.nome = nome
+                contatto.cognome = cognome
+                contatto.cellulare = cellulare
+                try? modelContext.save()
+                // contatto.cognome = cognome
+                //  contatto.cellulare = cellulare
+            }else {
+                let contatto = Contatti(nome: nome, cognome: cognome, cellulare: cellulare)
+                modelContext.insert(contatto)
             }
         }
     }
