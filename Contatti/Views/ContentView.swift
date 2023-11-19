@@ -16,24 +16,30 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             List{
-                HStack{
-                    Image(systemName: "person.crop.circle.fill")
-                        .resizable()
-                        .frame(width: 60, height: 60)
-                        .foregroundColor(.gray)
-                    VStack {
-                        Text("Aldo Vitolo").font(.title2).bold()
-                        Text("La mia scheda").font(.subheadline)
+                Section {
+                    HStack{
+                        Image(systemName: "person.crop.circle.fill")
+                            .resizable()
+                            .frame(width: 60, height: 60)
+                            .foregroundColor(.gray)
+                        VStack {
+                            Text(" Aldo Vitolo").font(.title2).bold()
+                            Text("La mia scheda").font(.subheadline)
+                        }
+                        
                     }
-                   
+                    
                 }
-                ForEach(contatto, id: \.self){ contatto in
-                    NavigationLink{
-                        DettagliContattoView(contatto: contatto)
-                    } label: {
-                        Text(contatto.nome)
-                        Text(contatto.cognome)
-                        //Text(contatto.cellulare)
+                
+                Section {
+                    ForEach(contatto, id: \.self){ contatto in
+                        NavigationLink{
+                            DettagliContattoView(contatto: contatto)
+                        } label: {
+                            Text(contatto.nome)
+                            Text(contatto.cognome)
+                            //Text(contatto.cellulare)
+                        }
                     }
                 }
             }
@@ -46,13 +52,27 @@ struct ContentView: View {
                     })
                     .sheet(isPresented: $aggiungiNuovoContatto){
                         AggiungiNuovoContattoView()
-                        
                     }
+                
+                }
+                ToolbarItem(placement: .topBarLeading){
+                    Button(action: {}, label: {
+                        Text("")
+                    })
                 }
             }
         }
         .searchable(text: $cercaContatto, prompt: "Cerca")
     }
+    
+    
+    //    var searchResults: [String] {
+    //            if cercaContatto.isEmpty {
+    //                return contatto.map { $0.nome }
+    //            } else {
+    //                return contatto.map { $0.nome }
+    //            }
+    //        }
     
     func ricercaContatto(_ cercaContatto: String, contatto: [Contatti]) -> [Contatti] {
         
@@ -66,6 +86,7 @@ struct ContentView: View {
 }
 
 #Preview {
+   // let contatti = Contatti(nome: "", cognome: "", cellulare: "")
     ContentView()
-    
+        //.modelContainer(for: contatti)
 }

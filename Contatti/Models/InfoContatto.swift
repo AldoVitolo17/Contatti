@@ -14,9 +14,9 @@ final class Contatti {
     var nome : String
     var cognome : String
     var cellulare : String
-   // var società : String
-//    var email : String?
-//    var immagine : Image?
+    //var società : String
+    //var email : String?
+    //var immagine : Image?
     
 //    init(id: String = UUID().uuidString, nome: String, cognome: String, cellulare: String, società: String, email: String) {
 //        self.id = id
@@ -26,12 +26,12 @@ final class Contatti {
 //        self.società = società
 //        self.email = email
 //    }
-
     init(id: String = UUID().uuidString, nome: String, cognome: String, cellulare: String) {
         self.id = id
         self.nome = nome
         self.cognome = cognome
         self.cellulare = cellulare
-       // self.società = società
     }
+    
 }
+
