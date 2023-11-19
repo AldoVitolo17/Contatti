@@ -1,59 +1,65 @@
-//
-//  ContentView.swift
-//  Contatti
-//
-//  Created by Aldo Vitolo on 15/11/23.
-//
-import SwiftData
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
-    
+
+    @Environment(\.modelContext) private var modelContext
     @Query private var contatto: [Contatti] = []
     @State private var aggiungiNuovoContatto = false
     @State private var cercaContatto = ""
-    
+
     var body: some View {
-        NavigationStack{
-            List{
+        NavigationStack {
+            List {
                 Section {
-                    HStack{
-                        Image(systemName: "person.crop.circle.fill")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .foregroundColor(.gray)
-                        VStack {
-                            Text(" Aldo Vitolo").font(.title2).bold()
-                            Text("La mia scheda").font(.subheadline)
+                    NavigationLink(destination: LaMiaSchedaView()) {
+                        HStack{
+                            Image(systemName: "person.crop.circle.fill")
+                                .resizable()
+                                .frame(width: 60, height: 60)
+                                .foregroundColor(.gray)
+                            VStack {
+                                Text(" Aldo Vitolo").font(.title2).bold()
+                                Text("La mia scheda").font(.subheadline)
+                            }
                         }
-                        
                     }
-                    
                 }
-                
-                Section {
-                    ForEach(contatto, id: \.self){ contatto in
-                        NavigationLink{
-                            DettagliContattoView(contatto: contatto)
-                        } label: {
-                            Text(contatto.nome)
-                            Text(contatto.cognome)
-                            //Text(contatto.cellulare)
+
+                // Raggruppa i contatti per lettera iniziale
+                let contattiByLetter = Dictionary(grouping: contatto) { String($0.nome.prefix(1)).uppercased() }
+
+                // Itera sul dizionario per creare le sezioni
+                ForEach(contattiByLetter.sorted(by: { $0.key < $1.key }), id: \.key) { key, contattiInLetter in
+                    Section(header: Text(key)) {
+                        ForEach(contattiInLetter.filter { contatto in
+                            cercaContatto.isEmpty ||
+                                contatto.nome.lowercased().contains(cercaContatto.lowercased()) ||
+                                contatto.cognome.lowercased().contains(cercaContatto.lowercased())
+                        }, id: \.self) { contatto in
+                            NavigationLink(destination: DettagliContattoView(contatto: contatto)) {
+                                Text(contatto.nome)
+                                Text(contatto.cognome)
+                            }
+                            .swipeActions {
+                                Button("Delete", role: .destructive) {
+                                    deleteContatto(contatto: contatto)
+                                }
+                            }
                         }
                     }
                 }
             }
             .listStyle(.grouped)
             .navigationTitle("Contatti")
-            .toolbar{
-                ToolbarItem{
+            .toolbar {
+                ToolbarItem {
                     Button(action: {aggiungiNuovoContatto=true}, label: {
                         Image(systemName: "plus")
                     })
                     .sheet(isPresented: $aggiungiNuovoContatto){
                         AggiungiNuovoContattoView()
                     }
-                
                 }
                 ToolbarItem(placement: .topBarLeading){
                     Button(action: {}, label: {
@@ -64,29 +70,14 @@ struct ContentView: View {
         }
         .searchable(text: $cercaContatto, prompt: "Cerca")
     }
-    
-    
-    //    var searchResults: [String] {
-    //            if cercaContatto.isEmpty {
-    //                return contatto.map { $0.nome }
-    //            } else {
-    //                return contatto.map { $0.nome }
-    //            }
-    //        }
-    
-    func ricercaContatto(_ cercaContatto: String, contatto: [Contatti]) -> [Contatti] {
-        
-        if cercaContatto.isEmpty {
-            return contatto
-        } else {
-            return contatto.filter { $0.nome.lowercased().contains(cercaContatto.lowercased())
-            }
-        }
+
+    func deleteContatto(contatto: Contatti){
+        modelContext.delete(contatto)
     }
 }
 
-#Preview {
-   // let contatti = Contatti(nome: "", cognome: "", cellulare: "")
-    ContentView()
-        //.modelContainer(for: contatti)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DettagliContattoView: View {
     
+    @Environment(\.modelContext) private var modelContext
     @State var contatto: Contatti?
     @State private var canUpdateContatto = false
     
@@ -25,7 +26,7 @@ struct DettagliContattoView: View {
                             .frame(width: 190)
                         Spacer()
                     }.foregroundColor(.gray)
-                    Section{
+                    Section("Nome"){
                         Text(contatto?.nome ?? "")
                             .font(.headline)
                             .fontWeight(.medium)
@@ -33,11 +34,18 @@ struct DettagliContattoView: View {
                             .font(.headline)
                             .fontWeight(.medium)
                     }
-    
-                    Section{
+                    
+                    Section("Cellulare"){
                         Text(contatto?.cellulare ?? "")
                     }
-
+                    
+                    Section{
+                        Button("Elimina Contatto"){
+                            deleteContatto(contatto: Contatti(nome: "", cognome: "", cellulare: ""))
+                            
+                        }.foregroundColor(.red)
+                    }
+                    
                 }
                 .listStyle(.grouped)
                 .navigationTitle(contatto?.nome ?? "")
@@ -50,9 +58,18 @@ struct DettagliContattoView: View {
                             AggiungiNuovoContattoView(contatto: contatto)
                         }
                     }
+                    
                 }
+               
+               
+                    
+               
             }
         }
+    }
+    
+    private func deleteContatto(contatto: Contatti){
+        modelContext.delete(contatto)
     }
 }
 
