@@ -26,6 +26,7 @@ struct DettagliContattoView: View {
                             .frame(width: 190)
                         Spacer()
                     }.foregroundColor(.gray)
+                        .accessibilityLabel("Contate Image")
                     Section("Nome"){
                         Text(contatto?.nome ?? "")
                             .font(.headline)
@@ -34,16 +35,21 @@ struct DettagliContattoView: View {
                             .font(.headline)
                             .fontWeight(.medium)
                     }
+                    .accessibilityLabel("Contact Name")
                     
                     Section("Cellulare"){
                         Text(contatto?.cellulare ?? "")
                     }
+                    .accessibilityLabel("Cellular")
                     
                     Section{
                         Button("Elimina Contatto"){
                             deleteContatto(contatto: Contatti(nome: "", cognome: "", cellulare: ""))
                             
-                        }.foregroundColor(.red)
+                        }
+                        .accessibilityAddTraits([.isButton])
+                        .foregroundColor(.red)
+                            .accessibilityLabel("Delete contact")
                     }
                     
                 }
@@ -54,6 +60,8 @@ struct DettagliContattoView: View {
                         Button("Modifica"){
                             canUpdateContatto = true
                         }
+                        .accessibilityAddTraits([.isButton])
+                        .accessibilityLabel("Modify contact")
                         .sheet(isPresented: $canUpdateContatto){
                             AggiungiNuovoContattoView(contatto: contatto)
                         }

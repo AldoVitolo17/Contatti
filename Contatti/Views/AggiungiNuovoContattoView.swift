@@ -40,6 +40,7 @@ struct AggiungiNuovoContattoView: View {
                         Spacer()
                     }.foregroundColor(.gray)
                     
+                    
                     Button(action: {}, label: {
                         Text("Aggiungi Foto")
                     })
@@ -48,29 +49,31 @@ struct AggiungiNuovoContattoView: View {
                     TextField(text: $nome){
                         Text("Nome")
                     }
+                    .accessibilityLabel("Contact name")
                     TextField(text: $cognome){
-                        Text("Sognome")
-                    }
+                        Text("Cognome")
+                    }.accessibilityLabel("Contact surname")
                     TextField(text: $società){
                         Text("Società")
                         // .color(Color(hue: 1.0, saturation: 0.54, brightness: 0.557))
-                    }
+                    }.accessibilityLabel("conctact society")
                 }
                 
                 Section {
                     TextField("aggiungi cellulare", text: $cellulare)
                     
-                }
+                }.accessibilityLabel("Contact phone number")
                 
                 
             }
-            .navigationTitle("Nuovo Contatto").navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Nuovo Contatto").navigationBarTitleDisplayMode(.inline).accessibilityLabel("New contact")
             .listStyle(.grouped)
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){
                     Button("Annulla"){
                         dismiss()
                     }
+                    .accessibilityLabel("delete changes")
                 }
                 ToolbarItem(placement: .topBarTrailing){
                     Button("Fine"){
@@ -85,6 +88,7 @@ struct AggiungiNuovoContattoView: View {
                             
                         }
                     }
+                    .accessibilityLabel("Done")
                     .disabled(nome.isEmpty)
                     .disabled(cellulare.isEmpty)
                 }

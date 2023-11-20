@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct ContentView: View {
 
@@ -13,7 +14,7 @@ struct ContentView: View {
             List {
                 Section {
                     NavigationLink(destination: LaMiaSchedaView()) {
-                        HStack{
+                        HStack(){
                             Image(systemName: "person.crop.circle.fill")
                                 .resizable()
                                 .frame(width: 60, height: 60)
@@ -23,9 +24,10 @@ struct ContentView: View {
                                 Text("La mia scheda").font(.subheadline)
                             }
                         }
+                        
                     }
-                }
-
+                }.accessibilityAddTraits([.isButton]).background(Color(.systemBackground)).accessibilityLabel("My information")
+                    
                 // Raggruppa i contatti per lettera iniziale
                 let contattiByLetter = Dictionary(grouping: contatto) { String($0.nome.prefix(1)).uppercased() }
 
@@ -46,10 +48,12 @@ struct ContentView: View {
                                     deleteContatto(contatto: contatto)
                                 }
                             }
+                            
                         }
                     }
                 }
             }
+            
             .listStyle(.grouped)
             .navigationTitle("Contatti")
             .toolbar {
@@ -57,9 +61,12 @@ struct ContentView: View {
                     Button(action: {aggiungiNuovoContatto=true}, label: {
                         Image(systemName: "plus")
                     })
+                    .accessibilityAddTraits([.isButton])
                     .sheet(isPresented: $aggiungiNuovoContatto){
                         AggiungiNuovoContattoView()
                     }
+                    .accessibilityLabel("add a new contact")
+                    
                 }
                 ToolbarItem(placement: .topBarLeading){
                     Button(action: {}, label: {

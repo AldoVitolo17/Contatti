@@ -22,8 +22,10 @@ struct LaMiaSchedaView: View {
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 190)
+                            
                         Spacer()
                     }.foregroundColor(.gray)
+                        .background(Color(.systemBackground))
                     Section("Nome"){
                         Text("Aldo")
                             .font(.headline)
@@ -45,6 +47,7 @@ struct LaMiaSchedaView: View {
                         Button("Modifica"){
                            // canUpdateContatto = true
                         }
+                        
                         //.sheet(isPresented: $canUpdateContatto){
                             //AggiungiNuovoContattoView(contatto: contatto)
                         //}
