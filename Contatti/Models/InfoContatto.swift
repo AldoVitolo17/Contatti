@@ -11,9 +11,9 @@ import SwiftData
 @Model
 final class Contatti {
     var id = UUID().uuidString
-    var name : String
-    var surname : String
-    var cellular : String
+    var nome : String
+    var cognome : String
+    var cellulare : String
     //var società : String
     //var email : String?
     //var immagine : Image?
@@ -26,11 +26,11 @@ final class Contatti {
 //        self.società = società
 //        self.email = email
 //    }
-    init(id: String = UUID().uuidString, name: String, cognome: String, cellulare: String) {
+    init(id: String = UUID().uuidString, nome: String, cognome: String, cellulare: String) {
         self.id = id
-        self.name = name
-        self.surname = cognome
-        self.cellular = cellulare
+        self.nome = nome
+        self.cognome = cognome
+        self.cellulare = cellulare
     }
     
 }

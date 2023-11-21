@@ -31,19 +31,19 @@ struct ContentView: View {
                     .accessibilityLabel("My information")
                     
                 // Raggruppa i contatti per lettera iniziale
-                let contattiByLetter = Dictionary(grouping: contatto) { String($0.name.prefix(1)).uppercased() }
+                let contattiByLetter = Dictionary(grouping: contatto) { String($0.nome.prefix(1)).uppercased() }
 
                 // Itera sul dizionario per creare le sezioni
                 ForEach(contattiByLetter.sorted(by: { $0.key < $1.key }), id: \.key) { key, contattiInLetter in
                     Section(header: Text(key)) {
                         ForEach(contattiInLetter.filter { contatto in
                             cercaContatto.isEmpty ||
-                                contatto.name.lowercased().contains(cercaContatto.lowercased()) ||
-                                contatto.surname.lowercased().contains(cercaContatto.lowercased())
+                                contatto.nome.lowercased().contains(cercaContatto.lowercased()) ||
+                                contatto.cognome.lowercased().contains(cercaContatto.lowercased())
                         }, id: \.self) { contatto in
                             NavigationLink(destination: DettagliContattoView(contatto: contatto)) {
-                                Text(contatto.name)
-                                Text(contatto.surname)
+                                Text(contatto.nome)
+                                Text(contatto.cognome)
                             }
                             .swipeActions {
                                 Button("Delete", role: .destructive) {

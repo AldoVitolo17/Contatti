@@ -97,9 +97,9 @@ struct AggiungiNuovoContattoView: View {
         
         .onAppear(){
             if let contatto{
-                nome = contatto.name
-                cognome = contatto.surname
-                cellulare = contatto.cellular
+                nome = contatto.nome
+                cognome = contatto.cognome
+                cellulare = contatto.cellulare
             }
         }
         
@@ -109,14 +109,14 @@ struct AggiungiNuovoContattoView: View {
     private func salvaContatto(){
         if !nome.isEmpty{
             if let contatto{
-                contatto.name = nome
-                contatto.surname = cognome
-                contatto.cellular = cellulare
+                contatto.nome = nome
+                contatto.cognome = cognome
+                contatto.cellulare = cellulare
                 try? modelContext.save()
                 // contatto.cognome = cognome
                 //  contatto.cellulare = cellulare
             }else {
-                let contatto = Contatti(name: nome, cognome: cognome, cellulare: cellulare)
+                let contatto = Contatti(nome: nome, cognome: cognome, cellulare: cellulare)
                 modelContext.insert(contatto)
             }
         }

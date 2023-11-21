@@ -28,25 +28,25 @@ struct DettagliContattoView: View {
                     }.foregroundColor(.gray)
                         .accessibilityLabel("Contate Image")
                     Section("Name"){
-                        Text(contatto?.name ?? "")
+                        Text(contatto?.nome ?? "")
                             .font(.headline)
                             .fontWeight(.medium)
-                            .accessibilityLabel(contatto?.name ?? "")
-                        Text(contatto?.surname ?? "")
+                            .accessibilityLabel(contatto?.nome ?? "")
+                        Text(contatto?.cognome ?? "")
                             .font(.headline)
                             .fontWeight(.medium)
-                            .accessibilityLabel(contatto?.surname ?? "")
+                            .accessibilityLabel(contatto?.cognome ?? "")
                     }
                     .accessibilityLabel("Contact Name")
                     
                     Section("Cellular"){
-                        Text(contatto?.cellular ?? "")
+                        Text(contatto?.cellulare ?? "")
                     }
-                    .accessibilityLabel(contatto?.cellular ?? "")
+                    .accessibilityLabel(contatto?.cellulare ?? "")
                     
                     Section{
                         Button("Delete Contact"){
-                            deleteContatto(contatto: Contatti(name: "", cognome: "", cellulare: ""))
+                            deleteContatto(contatto: Contatti(nome: "", cognome: "", cellulare: ""))
                             
                         }
                         .accessibilityAddTraits([.isButton])
@@ -56,7 +56,7 @@ struct DettagliContattoView: View {
                     
                 }
                 .listStyle(.grouped)
-                .navigationTitle(contatto?.name ?? "")
+                .navigationTitle(contatto?.nome ?? "")
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing){
                         Button("Modify"){
