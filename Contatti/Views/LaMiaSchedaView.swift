@@ -25,8 +25,10 @@ struct LaMiaSchedaView: View {
                             
                         Spacer()
                     }.foregroundColor(.gray)
-                        .background(Color(.systemBackground))
-                    Section("Nome"){
+                        
+                        
+                        //.background(Color(.systemBackground))
+                    Section("Name"){
                         Text("Aldo")
                             .font(.headline)
                             .fontWeight(.medium)
@@ -35,7 +37,7 @@ struct LaMiaSchedaView: View {
                             .fontWeight(.medium)
                     }
     
-                    Section("Cellulare"){
+                    Section("Cellular"){
                         Text("0123456789")
                     }
 
@@ -44,7 +46,7 @@ struct LaMiaSchedaView: View {
                 .navigationTitle("")
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing){
-                        Button("Modifica"){
+                        Button("Modify"){
                            // canUpdateContatto = true
                         }
                         

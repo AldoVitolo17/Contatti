@@ -27,24 +27,26 @@ struct DettagliContattoView: View {
                         Spacer()
                     }.foregroundColor(.gray)
                         .accessibilityLabel("Contate Image")
-                    Section("Nome"){
-                        Text(contatto?.nome ?? "")
+                    Section("Name"){
+                        Text(contatto?.name ?? "")
                             .font(.headline)
                             .fontWeight(.medium)
-                        Text(contatto?.cognome ?? "")
+                            .accessibilityLabel(contatto?.name ?? "")
+                        Text(contatto?.surname ?? "")
                             .font(.headline)
                             .fontWeight(.medium)
+                            .accessibilityLabel(contatto?.surname ?? "")
                     }
                     .accessibilityLabel("Contact Name")
                     
-                    Section("Cellulare"){
-                        Text(contatto?.cellulare ?? "")
+                    Section("Cellular"){
+                        Text(contatto?.cellular ?? "")
                     }
-                    .accessibilityLabel("Cellular")
+                    .accessibilityLabel(contatto?.cellular ?? "")
                     
                     Section{
-                        Button("Elimina Contatto"){
-                            deleteContatto(contatto: Contatti(nome: "", cognome: "", cellulare: ""))
+                        Button("Delete Contact"){
+                            deleteContatto(contatto: Contatti(name: "", cognome: "", cellulare: ""))
                             
                         }
                         .accessibilityAddTraits([.isButton])
@@ -54,10 +56,10 @@ struct DettagliContattoView: View {
                     
                 }
                 .listStyle(.grouped)
-                .navigationTitle(contatto?.nome ?? "")
+                .navigationTitle(contatto?.name ?? "")
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing){
-                        Button("Modifica"){
+                        Button("Modify"){
                             canUpdateContatto = true
                         }
                         .accessibilityAddTraits([.isButton])

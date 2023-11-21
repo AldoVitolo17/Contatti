@@ -21,27 +21,29 @@ struct ContentView: View {
                                 .foregroundColor(.gray)
                             VStack {
                                 Text(" Aldo Vitolo").font(.title2).bold()
-                                Text("La mia scheda").font(.subheadline)
+                                Text("My informations").font(.subheadline)
                             }
                         }
                         
                     }
-                }.accessibilityAddTraits([.isButton]).background(Color(.systemBackground)).accessibilityLabel("My information")
+                }.accessibilityAddTraits([.isButton])
+                    //.background(Color(.systemBackground).ignoresSafeArea())
+                    .accessibilityLabel("My information")
                     
                 // Raggruppa i contatti per lettera iniziale
-                let contattiByLetter = Dictionary(grouping: contatto) { String($0.nome.prefix(1)).uppercased() }
+                let contattiByLetter = Dictionary(grouping: contatto) { String($0.name.prefix(1)).uppercased() }
 
                 // Itera sul dizionario per creare le sezioni
                 ForEach(contattiByLetter.sorted(by: { $0.key < $1.key }), id: \.key) { key, contattiInLetter in
                     Section(header: Text(key)) {
                         ForEach(contattiInLetter.filter { contatto in
                             cercaContatto.isEmpty ||
-                                contatto.nome.lowercased().contains(cercaContatto.lowercased()) ||
-                                contatto.cognome.lowercased().contains(cercaContatto.lowercased())
+                                contatto.name.lowercased().contains(cercaContatto.lowercased()) ||
+                                contatto.surname.lowercased().contains(cercaContatto.lowercased())
                         }, id: \.self) { contatto in
                             NavigationLink(destination: DettagliContattoView(contatto: contatto)) {
-                                Text(contatto.nome)
-                                Text(contatto.cognome)
+                                Text(contatto.name)
+                                Text(contatto.surname)
                             }
                             .swipeActions {
                                 Button("Delete", role: .destructive) {
@@ -55,7 +57,7 @@ struct ContentView: View {
             }
             
             .listStyle(.grouped)
-            .navigationTitle("Contatti")
+            .navigationTitle("Contacts")
             .toolbar {
                 ToolbarItem {
                     Button(action: {aggiungiNuovoContatto=true}, label: {
@@ -75,7 +77,7 @@ struct ContentView: View {
                 }
             }
         }
-        .searchable(text: $cercaContatto, prompt: "Cerca")
+        .searchable(text: $cercaContatto, prompt: "Search")
     }
 
     func deleteContatto(contatto: Contatti){

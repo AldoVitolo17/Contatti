@@ -42,27 +42,27 @@ struct AggiungiNuovoContattoView: View {
                     
                     
                     Button(action: {}, label: {
-                        Text("Aggiungi Foto")
+                        Text("Add photo")
                     })
                 }
                 Section{
                     TextField(text: $nome){
-                        Text("Nome")
+                        Text("name")
                     }
                     .accessibilityLabel("Contact name")
                     TextField(text: $cognome){
-                        Text("Cognome")
+                        Text("surname")
                     }.accessibilityLabel("Contact surname")
                     TextField(text: $società){
-                        Text("Società")
+                        Text("society")
                         // .color(Color(hue: 1.0, saturation: 0.54, brightness: 0.557))
                     }.accessibilityLabel("conctact society")
                 }
                 
                 Section {
-                    TextField("aggiungi cellulare", text: $cellulare)
+                    TextField("add phone number", text: $cellulare)
                     
-                }.accessibilityLabel("Contact phone number")
+                }.accessibilityLabel("add Contact phone number")
                 
                 
             }
@@ -70,13 +70,13 @@ struct AggiungiNuovoContattoView: View {
             .listStyle(.grouped)
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){
-                    Button("Annulla"){
+                    Button("Dismiss"){
                         dismiss()
                     }
                     .accessibilityLabel("delete changes")
                 }
                 ToolbarItem(placement: .topBarTrailing){
-                    Button("Fine"){
+                    Button("Done"){
                         if !nome.isEmpty{
                             
                             withAnimation{
@@ -97,9 +97,9 @@ struct AggiungiNuovoContattoView: View {
         
         .onAppear(){
             if let contatto{
-                nome = contatto.nome
-                cognome = contatto.cognome
-                cellulare = contatto.cellulare
+                nome = contatto.name
+                cognome = contatto.surname
+                cellulare = contatto.cellular
             }
         }
         
@@ -109,14 +109,14 @@ struct AggiungiNuovoContattoView: View {
     private func salvaContatto(){
         if !nome.isEmpty{
             if let contatto{
-                contatto.nome = nome
-                contatto.cognome = cognome
-                contatto.cellulare = cellulare
+                contatto.name = nome
+                contatto.surname = cognome
+                contatto.cellular = cellulare
                 try? modelContext.save()
                 // contatto.cognome = cognome
                 //  contatto.cellulare = cellulare
             }else {
-                let contatto = Contatti(nome: nome, cognome: cognome, cellulare: cellulare)
+                let contatto = Contatti(name: nome, cognome: cognome, cellulare: cellulare)
                 modelContext.insert(contatto)
             }
         }
