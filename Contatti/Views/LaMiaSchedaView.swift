@@ -55,9 +55,6 @@ struct LaMiaSchedaView: View {
                            //canUpdateContatto = true
                         
                         }
-                        .sheet(isPresented: $canUpdateContatto){
-                            AggiungiNuovoContattoView(contatto: contatto)
-                        }
                         //.sheet(isPresented: $canUpdateContatto){
                             //AggiungiNuovoContattoView(contatto: contatto)
                         //}
