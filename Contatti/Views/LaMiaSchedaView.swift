@@ -4,12 +4,17 @@
 //
 //  Created by Aldo Vitolo on 19/11/23.
 //
-
+import SwiftData
 import SwiftUI
 
 struct LaMiaSchedaView: View {
-    
-    //@State private var canUpdateContatto: Bool
+    @Environment(\.modelContext) private var modalContext
+    @State private var canUpdateContatto = false
+    @State var contatto: Contatti? = nil
+    @State private var nome = ""
+    @State private var cognome = ""
+    @State private var cellulare = ""
+    @State private var società = ""
     
     var body: some View {
         ZStack{
@@ -29,16 +34,16 @@ struct LaMiaSchedaView: View {
                         
                         //.background(Color(.systemBackground))
                     Section("Name"){
-                        Text("Aldo")
+                        Text(contatto?.nome ?? "Aldo")
                             .font(.headline)
                             .fontWeight(.medium)
-                        Text("Vitolo")
+                        Text(contatto?.cognome ?? "Vitolo")
                             .font(.headline)
                             .fontWeight(.medium)
                     }
     
                     Section("Cellular"){
-                        Text("0123456789")
+                        Text(contatto?.cellulare ?? "0123456789")
                     }
 
                 }
@@ -47,9 +52,12 @@ struct LaMiaSchedaView: View {
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing){
                         Button("Modify"){
-                           // canUpdateContatto = true
-                        }
+                           //canUpdateContatto = true
                         
+                        }
+                        .sheet(isPresented: $canUpdateContatto){
+                            AggiungiNuovoContattoView(contatto: contatto)
+                        }
                         //.sheet(isPresented: $canUpdateContatto){
                             //AggiungiNuovoContattoView(contatto: contatto)
                         //}
@@ -58,6 +66,9 @@ struct LaMiaSchedaView: View {
             }
         }
     }
+   
+    
+
 }
 
 #Preview {

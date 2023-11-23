@@ -12,7 +12,7 @@ struct AggiungiNuovoContattoView: View {
     
     @Environment (\.modelContext) private var modelContext
     @Environment (\.dismiss) private var dismiss
-    @Query private var contact:[Contatti]
+    //@Query private var contact:[Contatti]
     @State var contatto: Contatti? = nil
     @State private var nome = ""
     @State private var cognome = ""
@@ -47,30 +47,30 @@ struct AggiungiNuovoContattoView: View {
                 }
                 Section{
                     TextField(text: $nome){
-                        Text("name")
+                        Text("First name")
                     }
                     .accessibilityLabel("Contact name")
                     TextField(text: $cognome){
-                        Text("surname")
+                        Text("Last name")
                     }.accessibilityLabel("Contact surname")
                     TextField(text: $società){
-                        Text("society")
+                        Text("company")
                         // .color(Color(hue: 1.0, saturation: 0.54, brightness: 0.557))
                     }.accessibilityLabel("conctact society")
                 }
                 
                 Section {
-                    TextField("add phone number", text: $cellulare)
+                    TextField("add phone", text: $cellulare)
                     
                 }.accessibilityLabel("add Contact phone number")
                 
                 
             }
-            .navigationTitle("Nuovo Contatto").navigationBarTitleDisplayMode(.inline).accessibilityLabel("New contact")
+            .navigationTitle("New Contact").navigationBarTitleDisplayMode(.inline).accessibilityLabel("New contact")
             .listStyle(.grouped)
             .toolbar{
                 ToolbarItem(placement: .topBarLeading){
-                    Button("Dismiss"){
+                    Button("Cancel"){
                         dismiss()
                     }
                     .accessibilityLabel("delete changes")

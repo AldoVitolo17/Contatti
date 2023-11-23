@@ -78,6 +78,7 @@ struct ContentView: View {
             }
         }
         .searchable(text: $cercaContatto, prompt: "Search")
+        .accessibilityLabel("Searchbar")
     }
 
     func deleteContatto(contatto: Contatti){

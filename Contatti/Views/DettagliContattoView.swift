@@ -45,8 +45,8 @@ struct DettagliContattoView: View {
                     .accessibilityLabel(contatto?.cellulare ?? "")
                     
                     Section{
-                        Button("Delete Contact"){
-                            deleteContatto(contatto: Contatti(nome: "", cognome: "", cellulare: ""))
+                        Button("Delete Contact", role: .destructive){
+                            deleteContatto(contatto: Contatti(nome: contatto?.nome ?? "", cognome: contatto?.cognome ?? "", cellulare: contatto?.cellulare ?? ""))
                             
                         }
                         .accessibilityAddTraits([.isButton])
@@ -59,7 +59,7 @@ struct DettagliContattoView: View {
                 .navigationTitle(contatto?.nome ?? "")
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing){
-                        Button("Modify"){
+                        Button("Edit"){
                             canUpdateContatto = true
                         }
                         .accessibilityAddTraits([.isButton])
